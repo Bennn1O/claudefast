@@ -698,6 +698,60 @@ function StepBlock({ number, title, subtitle, essential }: { number: number; tit
   );
 }
 
+function EmailCapture() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
+
+  async function subscribe() {
+    if (!email.trim()) return;
+    setStatus("loading");
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      setStatus(res.ok ? "done" : "error");
+    } catch {
+      setStatus("error");
+    }
+  }
+
+  if (status === "done") {
+    return (
+      <div className="bg-[rgba(255,107,53,0.08)] border border-[rgba(255,107,53,0.25)] rounded-xl p-4 text-center">
+        <p className="text-sm text-[#ff6b35] font-medium">Tu es dans la liste.</p>
+        <p className="text-xs text-[#6a6058] mt-0.5">Updates ClaudeFast + nouveaux MCPs chaque semaine.</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-[#1a1713] border border-[#2e2a24] rounded-xl p-4">
+      <p className="text-sm font-medium text-[#f0ead8] mb-1">Rester à jour</p>
+      <p className="text-xs text-[#6a6058] mb-3">Nouveaux MCPs, skills et updates ClaudeFast — une fois par semaine.</p>
+      <div className="flex gap-2">
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && subscribe()}
+          placeholder="ton@email.com"
+          className="flex-1 bg-[#141210] border border-[#2e2a24] rounded-lg px-3 py-2 text-sm text-[#f0ead8] placeholder-[#4a4438] focus:outline-none focus:border-[#ff6b35] transition-colors"
+        />
+        <button
+          onClick={subscribe}
+          disabled={status === "loading"}
+          className="px-4 py-2 bg-[#ff6b35] text-white text-sm font-semibold rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 cursor-pointer"
+        >
+          {status === "loading" ? "..." : "OK"}
+        </button>
+      </div>
+      {status === "error" && <p className="text-xs text-[rgba(255,107,53,0.75)] mt-1.5">Erreur — réessaie.</p>}
+    </div>
+  );
+}
+
 function StepResults({ data, claudeMd, loading }: { data: FormData; claudeMd: string; loading: boolean }) {
   const [showAllMcps, setShowAllMcps] = useState(false);
 
@@ -846,6 +900,9 @@ function StepResults({ data, claudeMd, loading }: { data: FormData; claudeMd: st
           <CopyButton text={AUDIT_PROMPT} label="Copier le prompt" />
         </div>
       </div>
+
+      {/* Email capture */}
+      <EmailCapture />
 
       {/* Footer */}
       <div className="border-t border-[#252118] pt-4 text-center space-y-1">
