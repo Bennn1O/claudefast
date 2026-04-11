@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { SponsorBlock, SponsorEmpty } from "@/components/SponsorBlock";
 
 // --- Types ---
 type UseCase = "strategy" | "content" | "code" | "sales" | "ops";
@@ -441,19 +442,19 @@ function StepInstall({ value, onChange, disclaimer, onDisclaimerChange }: { valu
           onClick={() => onChange(opt.val)}
           className={`w-full text-left px-5 py-4 rounded-xl border transition-all cursor-pointer ${
             value === opt.val
-              ? "border-[#ff6b35] bg-[rgba(255,107,53,0.08)] text-[#f0ead8]"
+              ? "border-[#D97B4F] bg-[rgba(217,123,79,0.08)] text-[#f0ead8]"
               : "border-[#2e2a24] bg-[#1e1b17] text-[#c8bfaa] hover:border-[#403a32]"
           }`}
         >
           <div className="font-semibold">{opt.label}</div>
-          <div className={`text-sm mt-0.5 ${value === opt.val ? "text-[#ff6b35]" : "text-[#6a6058]"}`}>{opt.sub}</div>
+          <div className={`text-sm mt-0.5 ${value === opt.val ? "text-[#D97B4F]" : "text-[#8a8070]"}`}>{opt.sub}</div>
         </button>
       ))}
       <label className="flex items-start gap-3 mt-4 cursor-pointer group">
         <div
           onClick={() => onDisclaimerChange(!disclaimer)}
           className={`mt-0.5 w-4 h-4 rounded border-2 shrink-0 flex items-center justify-center transition-colors ${
-            disclaimer ? "bg-[#ff6b35] border-[#ff6b35]" : "border-[#403a32] group-hover:border-[#403a32]"
+            disclaimer ? "bg-[#D97B4F] border-[#D97B4F]" : "border-[#403a32] group-hover:border-[#403a32]"
           }`}
         >
           {disclaimer && <span className="text-white text-xs leading-none">✓</span>}
@@ -499,22 +500,22 @@ function InstallGuide() {
 
   return (
     <div className="mb-8 space-y-4">
-      <div className="bg-[rgba(255,107,53,0.08)] border border-[rgba(255,107,53,0.25)] rounded-xl p-4">
-        <div className="font-semibold text-[#ff6b35] mb-1 text-sm">Avant tout : installe Claude Code</div>
-        <p className="text-xs text-[rgba(255,107,53,0.85)] mb-3">Tu as besoin d&apos;un compte Anthropic et d&apos;une des options ci-dessous.</p>
+      <div className="bg-[rgba(217,123,79,0.08)] border border-[rgba(217,123,79,0.25)] rounded-xl p-4">
+        <div className="font-semibold text-[#D97B4F] mb-1 text-sm">Avant tout : installe Claude Code</div>
+        <p className="text-xs text-[rgba(217,123,79,0.85)] mb-3">Tu as besoin d&apos;un compte Anthropic et d&apos;une des options ci-dessous.</p>
         {options.map((o) => (
           <div key={o.label}>
-            <div className="text-xs font-semibold text-[#ff6b35] mb-1">{o.label}</div>
-            <code className="block text-xs text-[#ff6b35] bg-[#1a1713] border border-[rgba(255,107,53,0.25)] rounded-lg px-3 py-2 font-mono mb-1">
+            <div className="text-xs font-semibold text-[#D97B4F] mb-1">{o.label}</div>
+            <code className="block text-xs text-[#D97B4F] bg-[#1a1713] border border-[rgba(217,123,79,0.25)] rounded-lg px-3 py-2 font-mono mb-1">
               {o.cmd}
             </code>
-            <p className="text-xs text-[rgba(255,107,53,0.75)]">{o.note}</p>
+            <p className="text-xs text-[rgba(217,123,79,0.75)]">{o.note}</p>
           </div>
         ))}
       </div>
 
       <div>
-        <p className="text-xs font-semibold text-[#6a6058] uppercase tracking-wider mb-2">Ou via un IDE</p>
+        <p className="text-xs font-semibold text-[#8a8070] uppercase tracking-wider mb-2">Ou via un IDE</p>
         <div className="space-y-2">
           {ides.map((ide) => (
             <a
@@ -531,7 +532,7 @@ function InstallGuide() {
                 </div>
                 <div className="text-xs text-[#8a8070] mt-0.5">{ide.description}</div>
               </div>
-              <span className="text-[#4a4438] group-hover:text-[#8a8070] transition-colors text-lg shrink-0">→</span>
+              <span className="text-[#8a8070] group-hover:text-[#8a8070] transition-colors text-lg shrink-0">→</span>
             </a>
           ))}
         </div>
@@ -550,9 +551,9 @@ function StepRole({ value, onChange }: { value: string; onChange: (v: string) =>
           onChange={(e) => onChange(e.target.value)}
           placeholder="Ex: Founder d'un SaaS RH, DG d'une PME industrielle, Dev freelance React..."
           autoFocus
-          className="w-full bg-[#1a1713] border border-[#2e2a24] rounded-lg px-4 py-3 text-[#f0ead8] placeholder-[#4a4438] focus:outline-none focus:border-[#ff6b35] focus:ring-1 focus:ring-[#ff6b35] transition-colors"
+          className="w-full bg-[#1a1713] border border-[#2e2a24] rounded-lg px-4 py-3 text-[#f0ead8] placeholder-[#6a6058] focus:outline-none focus:border-[#D97B4F] focus:ring-1 focus:ring-[#D97B4F] transition-colors"
         />
-        <p className="text-xs text-[#6a6058] mt-2">Sois specifique — ca conditionne tout le setup genere</p>
+        <p className="text-xs text-[#8a8070] mt-2">Sois specifique — ca conditionne tout le setup genere</p>
       </div>
       <div className="flex flex-wrap gap-2">
         {[
@@ -569,7 +570,7 @@ function StepRole({ value, onChange }: { value: string; onChange: (v: string) =>
             onClick={() => onChange(suggestion)}
             className={`px-3 py-1.5 rounded-lg text-sm border transition-all cursor-pointer ${
               value === suggestion
-                ? "border-[#ff6b35] bg-[rgba(255,107,53,0.08)] text-[#ff6b35]"
+                ? "border-[#D97B4F] bg-[rgba(217,123,79,0.08)] text-[#D97B4F]"
                 : "border-[#2e2a24] text-[#8a8070] hover:border-[#403a32] hover:text-[#c8bfaa] bg-[#1a1713]"
             }`}
           >
@@ -597,7 +598,7 @@ function StepUseCase({ value, onChange }: { value: UseCaseSet; onChange: (v: Use
 
   return (
     <div className="space-y-3">
-      <p className="text-xs text-[#6a6058]">Selectione tout ce qui s&apos;applique</p>
+      <p className="text-xs text-[#8a8070]">Selectione tout ce qui s&apos;applique</p>
       {cases.map((c) => {
         const selected = value.includes(c.id);
         return (
@@ -606,18 +607,18 @@ function StepUseCase({ value, onChange }: { value: UseCaseSet; onChange: (v: Use
             onClick={() => toggle(c.id)}
             className={`w-full text-left px-5 py-4 rounded-xl border transition-all cursor-pointer flex items-start gap-3 ${
               selected
-                ? "border-[#ff6b35] bg-[rgba(255,107,53,0.08)] text-[#f0ead8]"
+                ? "border-[#D97B4F] bg-[rgba(217,123,79,0.08)] text-[#f0ead8]"
                 : "border-[#2e2a24] bg-[#1e1b17] text-[#c8bfaa] hover:border-[#403a32]"
             }`}
           >
             <div className={`mt-0.5 w-4 h-4 rounded border-2 shrink-0 flex items-center justify-center transition-colors ${
-              selected ? "bg-[#ff6b35] border-[#ff6b35]" : "border-[#403a32]"
+              selected ? "bg-[#D97B4F] border-[#D97B4F]" : "border-[#403a32]"
             }`}>
               {selected && <span className="text-white text-xs leading-none">✓</span>}
             </div>
             <div>
               <div className="font-semibold">{c.label}</div>
-              <div className={`text-sm mt-0.5 ${selected ? "text-[#ff6b35]" : "text-[#6a6058]"}`}>{c.sub}</div>
+              <div className={`text-sm mt-0.5 ${selected ? "text-[#D97B4F]" : "text-[#8a8070]"}`}>{c.sub}</div>
             </div>
           </button>
         );
@@ -647,22 +648,22 @@ function StepContext({
             value={data[f.key] as string}
             onChange={(e) => onChange(f.key, e.target.value)}
             placeholder={f.placeholder}
-            className="w-full bg-[#1a1713] border border-[#2e2a24] rounded-lg px-4 py-3 text-[#f0ead8] placeholder-[#4a4438] focus:outline-none focus:border-[#ff6b35] focus:ring-1 focus:ring-[#ff6b35] transition-colors"
+            className="w-full bg-[#1a1713] border border-[#2e2a24] rounded-lg px-4 py-3 text-[#f0ead8] placeholder-[#6a6058] focus:outline-none focus:border-[#D97B4F] focus:ring-1 focus:ring-[#D97B4F] transition-colors"
           />
         </div>
       ))}
       <div className="border-t border-[#252118] pt-4">
         <label className="block text-sm text-[#8a8070] mb-1.5">
-          Nom de ton agent <span className="text-[#6a6058]">(optionnel)</span>
+          Nom de ton agent <span className="text-[#8a8070]">(optionnel)</span>
         </label>
         <input
           type="text"
           value={data.agentName}
           onChange={(e) => onChange("agentName", e.target.value)}
           placeholder="Ex: Vik, Alex, Max..."
-          className="w-full bg-[#1a1713] border border-[#2e2a24] rounded-lg px-4 py-3 text-[#f0ead8] placeholder-[#4a4438] focus:outline-none focus:border-[#ff6b35] focus:ring-1 focus:ring-[#ff6b35] transition-colors"
+          className="w-full bg-[#1a1713] border border-[#2e2a24] rounded-lg px-4 py-3 text-[#f0ead8] placeholder-[#6a6058] focus:outline-none focus:border-[#D97B4F] focus:ring-1 focus:ring-[#D97B4F] transition-colors"
         />
-        <p className="text-xs text-[#6a6058] mt-1">Donne une identite a ton assistant — il s&apos;appellera ainsi dans toutes vos interactions</p>
+        <p className="text-xs text-[#8a8070] mt-1">Donne une identite a ton assistant — il s&apos;appellera ainsi dans toutes vos interactions</p>
       </div>
       <div>
         <label className="block text-sm text-[#8a8070] mb-1.5">
@@ -673,9 +674,9 @@ function StepContext({
           onChange={(e) => onChange("context", e.target.value)}
           placeholder="Ex: On aide les agences B2B a generer des leads via cold email et LinkedIn. Nos clients sont des fondateurs de 5-20 personnes. Probleme principal : volume de leads insuffisant et sequences qui convertissent pas..."
           rows={4}
-          className="w-full bg-[#1a1713] border border-[#2e2a24] rounded-lg px-4 py-3 text-[#f0ead8] placeholder-[#4a4438] focus:outline-none focus:border-[#ff6b35] focus:ring-1 focus:ring-[#ff6b35] transition-colors resize-none text-sm"
+          className="w-full bg-[#1a1713] border border-[#2e2a24] rounded-lg px-4 py-3 text-[#f0ead8] placeholder-[#6a6058] focus:outline-none focus:border-[#D97B4F] focus:ring-1 focus:ring-[#D97B4F] transition-colors resize-none text-sm"
         />
-        <p className="text-xs text-[#6a6058] mt-1">Plus c&apos;est precis, meilleur sera le CLAUDE.md</p>
+        <p className="text-xs text-[#8a8070] mt-1">Plus c&apos;est precis, meilleur sera le CLAUDE.md</p>
       </div>
     </div>
   );
@@ -684,15 +685,15 @@ function StepContext({
 function StepBlock({ number, title, subtitle, essential }: { number: number; title: string; subtitle: string; essential?: boolean }) {
   return (
     <div className="flex items-start gap-3 mb-4">
-      <div className={`w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold shrink-0 mt-0.5 ${essential ? "bg-[#ff6b35] text-white" : "bg-[#252118] text-[#8a8070]"}`}>
+      <div className={`w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold shrink-0 mt-0.5 ${essential ? "bg-[#D97B4F] text-white" : "bg-[#252118] text-[#8a8070]"}`}>
         {number}
       </div>
       <div>
         <div className="flex items-center gap-2">
           <span className="font-semibold text-[#f0ead8]">{title}</span>
-          {essential && <span className="text-xs bg-[rgba(255,107,53,0.08)] text-[#ff6b35] border border-[rgba(255,107,53,0.25)] px-2 py-0.5 rounded-full">Essentiel</span>}
+          {essential && <span className="text-xs bg-[rgba(217,123,79,0.08)] text-[#D97B4F] border border-[rgba(217,123,79,0.25)] px-2 py-0.5 rounded-full">Essentiel</span>}
         </div>
-        <p className="text-sm text-[#6a6058] mt-0.5">{subtitle}</p>
+        <p className="text-sm text-[#8a8070] mt-0.5">{subtitle}</p>
       </div>
     </div>
   );
@@ -719,9 +720,9 @@ function EmailCapture() {
 
   if (status === "done") {
     return (
-      <div className="bg-[rgba(255,107,53,0.08)] border border-[rgba(255,107,53,0.25)] rounded-xl p-4 text-center">
-        <p className="text-sm text-[#ff6b35] font-medium">Tu es dans la liste.</p>
-        <p className="text-xs text-[#6a6058] mt-0.5">Updates ClaudeFast + nouveaux MCPs chaque semaine.</p>
+      <div className="bg-[rgba(217,123,79,0.08)] border border-[rgba(217,123,79,0.25)] rounded-xl p-4 text-center">
+        <p className="text-sm text-[#D97B4F] font-medium">Tu es dans la liste.</p>
+        <p className="text-xs text-[#8a8070] mt-0.5">Updates ClaudeFast + nouveaux MCPs chaque semaine.</p>
       </div>
     );
   }
@@ -729,7 +730,7 @@ function EmailCapture() {
   return (
     <div className="bg-[#1a1713] border border-[#2e2a24] rounded-xl p-4">
       <p className="text-sm font-medium text-[#f0ead8] mb-1">Rester à jour</p>
-      <p className="text-xs text-[#6a6058] mb-3">Nouveaux MCPs, skills et updates ClaudeFast — une fois par semaine.</p>
+      <p className="text-xs text-[#8a8070] mb-3">Nouveaux MCPs, skills et updates ClaudeFast — une fois par semaine.</p>
       <div className="flex gap-2">
         <input
           type="email"
@@ -737,17 +738,71 @@ function EmailCapture() {
           onChange={(e) => setEmail(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && subscribe()}
           placeholder="ton@email.com"
-          className="flex-1 bg-[#141210] border border-[#2e2a24] rounded-lg px-3 py-2 text-sm text-[#f0ead8] placeholder-[#4a4438] focus:outline-none focus:border-[#ff6b35] transition-colors"
+          className="flex-1 bg-[#141210] border border-[#2e2a24] rounded-lg px-3 py-2 text-sm text-[#f0ead8] placeholder-[#6a6058] focus:outline-none focus:border-[#D97B4F] transition-colors"
         />
         <button
           onClick={subscribe}
           disabled={status === "loading"}
-          className="px-4 py-2 bg-[#ff6b35] text-white text-sm font-semibold rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 cursor-pointer"
+          className="px-4 py-2 bg-[#D97B4F] text-white text-sm font-semibold rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 cursor-pointer"
         >
           {status === "loading" ? "..." : "OK"}
         </button>
       </div>
-      {status === "error" && <p className="text-xs text-[rgba(255,107,53,0.75)] mt-1.5">Erreur — réessaie.</p>}
+      {status === "error" && <p className="text-xs text-[rgba(217,123,79,0.75)] mt-1.5">Erreur — réessaie.</p>}
+    </div>
+  );
+}
+
+function SendReportBlock({ claudeMd, skills, mcps }: { claudeMd: string; skills: { label: string; installCmd: string }[]; mcps: { label: string; installCmd: string }[] }) {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
+
+  async function send() {
+    if (!email.trim()) return;
+    setStatus("loading");
+    try {
+      const res = await fetch("/api/send-report", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, claudeMd, skills, mcps }),
+      });
+      setStatus(res.ok ? "done" : "error");
+    } catch {
+      setStatus("error");
+    }
+  }
+
+  if (status === "done") {
+    return (
+      <div className="bg-[rgba(217,123,79,0.08)] border border-[rgba(217,123,79,0.25)] rounded-xl p-4 text-center">
+        <p className="text-sm font-medium text-[#D97B4F]">Setup envoyé.</p>
+        <p className="text-xs text-[#8a8070] mt-0.5">Vérifie ta boîte mail — CLAUDE.md + skills + MCPs.</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-[#1a1713] border border-[#2e2a24] rounded-xl p-4">
+      <p className="text-sm font-medium text-[#f0ead8] mb-1">Recevoir le setup par email</p>
+      <p className="text-xs text-[#8a8070] mb-3">CLAUDE.md + commandes d'installation — dans ta boîte.</p>
+      <div className="flex gap-2">
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && send()}
+          placeholder="ton@email.com"
+          className="flex-1 bg-[#141210] border border-[#2e2a24] rounded-lg px-3 py-2 text-sm text-[#f0ead8] placeholder-[#6a6058] focus:outline-none focus:border-[#D97B4F] transition-colors"
+        />
+        <button
+          onClick={send}
+          disabled={status === "loading"}
+          className="px-4 py-2 bg-[#D97B4F] text-white text-sm font-semibold rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 cursor-pointer"
+        >
+          {status === "loading" ? "..." : "Envoyer"}
+        </button>
+      </div>
+      {status === "error" && <p className="text-xs text-[rgba(217,123,79,0.75)] mt-1.5">Erreur — réessaie.</p>}
     </div>
   );
 }
@@ -776,8 +831,8 @@ function StepResults({ data, claudeMd, loading }: { data: FormData; claudeMd: st
         <StepBlock number={1} title="Colle ton CLAUDE.md" subtitle="Le fichier qui donne à Claude le contexte de ton business" essential />
         {loading ? (
           <div className="bg-[#1a1713] border border-[#2e2a24] rounded-xl p-8 flex flex-col items-center gap-3">
-            <div className="w-5 h-5 border-2 border-[#ff6b35] border-t-transparent rounded-full animate-spin" />
-            <p className="text-sm text-[#6a6058]">Claude génère ton fichier...</p>
+            <div className="w-5 h-5 border-2 border-[#D97B4F] border-t-transparent rounded-full animate-spin" />
+            <p className="text-sm text-[#8a8070]">Claude génère ton fichier...</p>
           </div>
         ) : (
           <>
@@ -787,7 +842,7 @@ function StepResults({ data, claudeMd, loading }: { data: FormData; claudeMd: st
               </pre>
             </div>
             <div className="flex items-center justify-between mt-2">
-              <p className="text-xs text-[#6a6058]">
+              <p className="text-xs text-[#8a8070]">
                 Sauvegarde dans <code className="text-[#8a8070] bg-[#252118] px-1 rounded">~/.claude/CLAUDE.md</code> pour qu&apos;il soit actif partout
               </p>
               {claudeMd && <CopyButton text={claudeMd} label="Copier le fichier" />}
@@ -806,7 +861,7 @@ function StepResults({ data, claudeMd, loading }: { data: FormData; claudeMd: st
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="font-semibold text-[#f0ead8] text-sm">{skill.label}</span>
-                    {skill.expert && <span className="text-xs bg-amber-50 text-[rgba(255,107,53,0.75)] border border-[rgba(255,107,53,0.25)] px-2 py-0.5 rounded-full">Expertise requise</span>}
+                    {skill.expert && <span className="text-xs bg-[rgba(217,123,79,0.08)] text-[rgba(217,123,79,0.75)] border border-[rgba(217,123,79,0.25)] px-2 py-0.5 rounded-full">Expertise requise</span>}
                   </div>
                   <div className="text-xs text-[#8a8070] mt-0.5">{skill.description}</div>
                 </div>
@@ -819,7 +874,7 @@ function StepResults({ data, claudeMd, loading }: { data: FormData; claudeMd: st
           ))}
           {bonusSkills.length > 0 && (
             <>
-              <p className="text-xs text-[#6a6058] pt-1 pl-1">Recommandes pour ton profil</p>
+              <p className="text-xs text-[#8a8070] pt-1 pl-1">Recommandes pour ton profil</p>
               {bonusSkills.map((skill) => (
                 <div key={skill.id} className="bg-[#1a1713] border border-[#2e2a24] rounded-xl p-4">
                   <div className="flex items-start justify-between gap-3">
@@ -838,9 +893,9 @@ function StepResults({ data, claudeMd, loading }: { data: FormData; claudeMd: st
           )}
         </div>
         {skills.length > 1 && (
-          <div className="bg-[rgba(255,107,53,0.08)] border border-[rgba(255,107,53,0.25)] rounded-xl p-3 mt-2">
+          <div className="bg-[rgba(217,123,79,0.08)] border border-[rgba(217,123,79,0.25)] rounded-xl p-3 mt-2">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-[#ff6b35]">Installer tous les skills d&apos;un coup</span>
+              <span className="text-xs font-semibold text-[#D97B4F]">Installer tous les skills d&apos;un coup</span>
               <CopyButton text={allSkillCmds} label="Tout copier" />
             </div>
           </div>
@@ -864,7 +919,7 @@ function StepResults({ data, claudeMd, loading }: { data: FormData; claudeMd: st
                 {mcp.installCmd}
               </code>
               {mcp.note && (
-                <p className="text-xs text-[rgba(255,107,53,0.75)] bg-amber-50 border border-[rgba(255,107,53,0.15)] rounded-lg px-3 py-1.5 mt-2">{mcp.note}</p>
+                <p className="text-xs text-[rgba(217,123,79,0.75)] bg-[rgba(217,123,79,0.08)] border border-[rgba(217,123,79,0.15)] rounded-lg px-3 py-1.5 mt-2">{mcp.note}</p>
               )}
             </div>
           ))}
@@ -872,7 +927,7 @@ function StepResults({ data, claudeMd, loading }: { data: FormData; claudeMd: st
         {mcps.length > 3 && (
           <button
             onClick={() => setShowAllMcps(v => !v)}
-            className="mt-3 w-full py-2 text-sm text-[#6a6058] hover:text-[#a09080] border border-[#2e2a24] rounded-xl transition-colors cursor-pointer"
+            className="mt-3 w-full py-2 text-sm text-[#8a8070] hover:text-[#a09080] border border-[#2e2a24] rounded-xl transition-colors cursor-pointer"
           >
             {showAllMcps ? "Voir moins" : `Voir ${mcps.length - 3} autres MCPs recommandes`}
           </button>
@@ -891,34 +946,46 @@ function StepResults({ data, claudeMd, loading }: { data: FormData; claudeMd: st
       </div>
 
       {/* Audit prompt */}
-      <div className="bg-[rgba(255,107,53,0.08)] border border-[rgba(255,107,53,0.25)] rounded-xl p-4">
+      <div className="bg-[rgba(217,123,79,0.08)] border border-[rgba(217,123,79,0.25)] rounded-xl p-4">
         <div className="flex items-start justify-between gap-3 mb-2">
           <div>
-            <span className="text-sm font-semibold text-[#ff6b35]">Auditer ton setup existant</span>
-            <p className="text-xs text-[#ff6b35] mt-0.5">Colle ce prompt dans Claude Code — il analyse et recommande sans rien toucher</p>
+            <span className="text-sm font-semibold text-[#D97B4F]">Auditer ton setup existant</span>
+            <p className="text-xs text-[#D97B4F] mt-0.5">Colle ce prompt dans Claude Code — il analyse et recommande sans rien toucher</p>
           </div>
           <CopyButton text={AUDIT_PROMPT} label="Copier le prompt" />
         </div>
       </div>
 
-      {/* Email capture */}
+      {/* Sponsor */}
+      {!loading && <SponsorBlock />}
+
+      {/* Envoyer le rapport */}
+      {!loading && claudeMd && (
+        <SendReportBlock
+          claudeMd={claudeMd}
+          skills={skills.map(s => ({ label: s.label, installCmd: s.installCmd }))}
+          mcps={mcps.map(m => ({ label: m.label, installCmd: m.installCmd }))}
+        />
+      )}
+
+      {/* Email capture newsletter */}
       <EmailCapture />
 
       {/* Footer */}
       <div className="border-t border-[#252118] pt-4 text-center space-y-1">
-        <p className="text-sm text-[#4a4438]">
+        <p className="text-sm text-[#8a8070]">
           Par{" "}
-          <a href="https://hypergrowth.fr" target="_blank" rel="noopener noreferrer" className="text-[#ff6b35] hover:opacity-70 transition-opacity">
+          <a href="https://hypergrowth.fr" target="_blank" rel="noopener noreferrer" className="text-[#D97B4F] hover:opacity-70 transition-opacity">
             HyperGrowth
           </a>
           {" "}· voir aussi{" "}
-          <a href="https://mcpfast.xyz" target="_blank" rel="noopener noreferrer" className="text-[#ff6b35] hover:opacity-70 transition-opacity">
+          <a href="https://mcpfast.xyz" target="_blank" rel="noopener noreferrer" className="text-[#D97B4F] hover:opacity-70 transition-opacity">
             MCPFast
           </a>
         </p>
-        <p className="text-xs text-[#4a4438]">
+        <p className="text-xs text-[#8a8070]">
           Tu transcris des reunions ou interviews ?{" "}
-          <a href="https://fastscribe.io" target="_blank" rel="noopener noreferrer" className="text-[#ff6b35] hover:opacity-70 transition-opacity">
+          <a href="https://fastscribe.io" target="_blank" rel="noopener noreferrer" className="text-[#D97B4F] hover:opacity-70 transition-opacity">
             Essaie FastScribe
           </a>
         </p>
@@ -956,7 +1023,7 @@ export default function Home() {
     (step === 0 && form.installed !== null && form.disclaimer) ||
     (step === 1 && form.role.trim().length > 0) ||
     (step === 2 && form.useCases.length > 0) ||
-    step === 3;
+    (step === 3 && form.name.trim().length > 0 && form.company.trim().length > 0 && form.product.trim().length > 0);
 
   function handleChange(key: keyof FormData, val: string) {
     setForm((prev) => ({ ...prev, [key]: val }));
@@ -987,10 +1054,10 @@ export default function Home() {
       <div className="w-full max-w-lg mb-10 text-center">
         <div className="inline-flex items-center gap-1.5 mb-8">
           <span className="text-xl font-bold tracking-tight text-[#f0ead8]" style={{ fontFamily: "var(--font-serif)" }}>ClaudeFast</span>
-          <span className="text-xs text-[#ff6b35] font-semibold tracking-widest uppercase mt-1">beta</span>
+          <span className="text-xs text-[#D97B4F] font-semibold tracking-widest uppercase mt-1">beta</span>
         </div>
         <h1 className="text-3xl font-bold mb-3 leading-snug" style={{ fontFamily: "var(--font-serif)" }}>
-          Configure Claude Code<br /><span className="italic text-[#ff6b35]">en 2 minutes.</span>
+          Configure Claude Code<br /><span className="italic text-[#D97B4F]">en 2 minutes.</span>
         </h1>
         <p className="text-[#8a8070]">
           3 questions. Ton CLAUDE.md personnalisé, tes skills et MCPs — prêts à coller.
@@ -1005,12 +1072,12 @@ export default function Home() {
               <div
                 key={i}
                 className={`h-0.5 flex-1 rounded-full transition-all ${
-                  i <= step ? "bg-[#ff6b35]" : "bg-[#2e2a24]"
+                  i <= step ? "bg-[#D97B4F]" : "bg-[#2e2a24]"
                 }`}
               />
             ))}
           </div>
-          <p className="text-xs text-[#6a6058] mt-2">Etape {step + 1} sur 4</p>
+          <p className="text-xs text-[#8a8070] mt-2">Etape {step + 1} sur 4</p>
         </div>
       )}
 
@@ -1018,7 +1085,7 @@ export default function Home() {
       <div className="step-card w-full max-w-lg bg-[#1e1b17] border border-[#2e2a24] rounded-2xl p-6">
         <div className="mb-6">
           <h2 className="text-xl font-bold text-[#f0ead8]" style={{ fontFamily: "var(--font-serif)" }}>{steps[step].title}</h2>
-          <p className="text-sm text-[#6a6058] mt-1">{steps[step].subtitle}</p>
+          <p className="text-sm text-[#8a8070] mt-1">{steps[step].subtitle}</p>
         </div>
 
         {step === 0 && (
@@ -1058,8 +1125,8 @@ export default function Home() {
               disabled={!canNext}
               className={`flex-1 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all ${
                 canNext
-                  ? "bg-[#ff6b35] hover:bg-[rgba(255,107,53,0.08)]0 text-white cursor-pointer"
-                  : "bg-[#252118] text-[#4a4438] cursor-not-allowed"
+                  ? "bg-[#D97B4F] hover:bg-[rgba(217,123,79,0.08)]0 text-white cursor-pointer"
+                  : "bg-[#252118] text-[#8a8070] cursor-not-allowed"
               }`}
             >
               {step === 3 ? "Generer mon setup" : "Continuer"}
@@ -1074,7 +1141,7 @@ export default function Home() {
               setForm({ installed: null, disclaimer: false, role: "", useCases: [], name: "", company: "", product: "", context: "", agentName: "" });
               setClaudeMd("");
             }}
-            className="mt-6 w-full px-5 py-2.5 rounded-xl border border-[#2e2a24] text-[#6a6058] hover:border-[#403a32] hover:text-[#a09080] transition-colors text-sm cursor-pointer"
+            className="mt-6 w-full px-5 py-2.5 rounded-xl border border-[#2e2a24] text-[#8a8070] hover:border-[#403a32] hover:text-[#a09080] transition-colors text-sm cursor-pointer"
           >
             Recommencer
           </button>

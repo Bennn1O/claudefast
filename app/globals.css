@@ -9,9 +9,9 @@
   --text:           #f0ead8;
   --text-muted:     #8a8070;
   --text-secondary: #4a4438;
-  --accent:         #ff6b35;
-  --accent-dim:     rgba(255, 107, 53, 0.08);
-  --accent-border:  rgba(255, 107, 53, 0.25);
+  --accent:         #D97B4F;
+  --accent-dim:     rgba(217, 123, 79, 0.08);
+  --accent-border:  rgba(217, 123, 79, 0.25);
 
   --font-serif: 'DM Serif Display', Georgia, 'Times New Roman', serif;
   --font-sans:  'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
