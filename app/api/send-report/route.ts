@@ -6,6 +6,25 @@ function getResend() {
   return new Resend(process.env.RESEND_API_KEY!)
 }
 
+async function createGist(claudeMd: string): Promise<string | null> {
+  try {
+    const res = await fetch('https://api.github.com/gists', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'User-Agent': 'ClaudeFast' },
+      body: JSON.stringify({
+        description: 'Mon CLAUDE.md — généré sur ClaudeFast',
+        public: true,
+        files: { 'CLAUDE.md': { content: claudeMd } },
+      }),
+    })
+    if (!res.ok) return null
+    const data = await res.json()
+    return data.html_url ?? null
+  } catch {
+    return null
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
     const { email, claudeMd, skills, mcps } = await req.json()
@@ -17,7 +36,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Contenu manquant' }, { status: 400 })
     }
 
-    const { subject, html } = reportEmail(claudeMd, skills ?? [], mcps ?? [])
+    const gistUrl = await createGist(claudeMd)
+    const { subject, html } = reportEmail(claudeMd, skills ?? [], mcps ?? [], gistUrl)
     const resend = getResend()
 
     const { error } = await resend.emails.send({

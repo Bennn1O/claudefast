@@ -69,7 +69,7 @@ function codeBlock(code: string) {
   </div>`
 }
 
-export function reportEmail(claudeMd: string, skills: SkillItem[], mcps: McpItem[]) {
+export function reportEmail(claudeMd: string, skills: SkillItem[], mcps: McpItem[], gistUrl?: string | null) {
   const skillRows = skills.map(s => `
     <tr>
       <td style="padding:12px 0;border-bottom:1px solid #ddd8ce;vertical-align:top;">
@@ -100,9 +100,18 @@ export function reportEmail(claudeMd: string, skills: SkillItem[], mcps: McpItem
     <p style="margin:0 0 6px;font-family:Arial,sans-serif;font-size:11px;color:#5a5245;line-height:1.5;">
       Sauvegarde dans <code style="background:#e8e2d8;padding:1px 5px;border-radius:2px;font-size:10px;">~/.claude/CLAUDE.md</code>
     </p>
+    ${gistUrl ? `
+    <table cellpadding="0" cellspacing="0" style="margin:8px 0 28px;">
+      <tr><td style="background:#1e1b17;border-radius:4px;padding:14px 20px;">
+        <p style="margin:0 0 8px;font-family:Arial,sans-serif;font-size:11px;color:#8a8070;">Fichier complet disponible sur GitHub Gist :</p>
+        <a href="${gistUrl}" style="font-family:'Courier New',Courier,monospace;font-size:11px;color:#D97B4F;word-break:break-all;">${gistUrl}</a>
+      </td></tr>
+    </table>
+    ` : `
     <div style="background:#1e1b17;border-radius:4px;padding:16px;margin:8px 0 28px;max-height:300px;overflow:hidden;">
       <pre style="margin:0;font-family:'Courier New',Courier,monospace;font-size:11px;color:#f0ead8;white-space:pre-wrap;word-break:break-all;line-height:1.6;">${claudeMd.replace(/</g,'&lt;').replace(/>/g,'&gt;').substring(0, 2000)}${claudeMd.length > 2000 ? '\n...' : ''}</pre>
     </div>
+    `}
 
     <!-- Skills -->
     ${skills.length > 0 ? `
@@ -122,9 +131,14 @@ export function reportEmail(claudeMd: string, skills: SkillItem[], mcps: McpItem
 
     <!-- CTA -->
     <table cellpadding="0" cellspacing="0" style="margin:8px 0 0;">
-      <tr><td style="background:#141210;border-radius:3px;">
-        <a href="${SITE_URL}" style="display:inline-block;padding:10px 24px;font-family:Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#f0ead8;text-decoration:none;">Revenir sur ClaudeFast →</a>
-      </td></tr>
+      <tr>
+        <td style="background:#141210;border-radius:3px;padding-right:12px;">
+          <a href="${gistUrl ?? SITE_URL}" style="display:inline-block;padding:10px 24px;font-family:Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#f0ead8;text-decoration:none;">${gistUrl ? 'Voir mon CLAUDE.md →' : 'Revenir sur ClaudeFast →'}</a>
+        </td>
+        ${gistUrl ? `<td style="background:#2a2520;border-radius:3px;">
+          <a href="${SITE_URL}" style="display:inline-block;padding:10px 24px;font-family:Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#8a8070;text-decoration:none;">ClaudeFast →</a>
+        </td>` : ''}
+      </tr>
     </table>
   `
 
