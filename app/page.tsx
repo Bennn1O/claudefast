@@ -43,11 +43,11 @@ const SKILLS: Record<string, Skill> = {
     description: "Pack complet : brainstorming, TDD, debugging, code review, git worktrees",
     installCmd: `claude plugins install superpowers`,
   },
-  "setup-by-ben": {
-    id: "setup-by-ben",
+  "setup-wizard": {
+    id: "setup-wizard",
     label: "Setup Wizard",
     description: "Configure tout Claude Code en mode guide interactif",
-    installCmd: `mkdir -p ~/.claude/skills/setup-by-ben && curl -o ~/.claude/skills/setup-by-ben/skill.md https://gist.githubusercontent.com/Bennn1O/e5983304f79329e851e90904f5acb50a/raw/skill.md`,
+    installCmd: `mkdir -p ~/.claude/skills/setup-wizard && curl -o ~/.claude/skills/setup-wizard/skill.md https://gist.githubusercontent.com/Bennn1O/e5983304f79329e851e90904f5acb50a/raw/skill.md`,
   },
   humanizer: {
     id: "humanizer",
@@ -327,7 +327,7 @@ function getRecommendedMCPs(useCases: UseCaseSet): string[] {
 
 // --- Mapping useCases → skills ---
 function getRecommendedSkills(useCases: UseCaseSet): string[] {
-  const base = ["setup-by-ben", "humanizer"];
+  const base = ["setup-wizard", "humanizer"];
   const map: Partial<Record<UseCase, string[]>> = {
     strategy: ["gtm", "pptx", "xlsx", "seo-audit"],
     content: ["pptx", "pdf", "seo-audit", "twitter-automation"],
@@ -385,7 +385,7 @@ Ne poser des questions que si c'est vraiment bloquant.
 }
 
 // --- Verification script ---
-const VERIFY_CMD = `echo "=== Claude Code Setup ===" && for skill in setup-by-ben humanizer gtm linkedin-cold-outreach; do [ -f ~/.claude/skills/$skill/skill.md ] && echo "OK $skill" || echo "- $skill (non installe)"; done`;
+const VERIFY_CMD = `echo "=== Claude Code Setup ===" && for skill in setup-wizard humanizer gtm linkedin-cold-outreach; do [ -f ~/.claude/skills/$skill/skill.md ] && echo "OK $skill" || echo "- $skill (non installe)"; done`;
 
 // --- Audit prompt ---
 const AUDIT_PROMPT = `Audite mon setup Claude Code complet et optimise-le.
@@ -460,7 +460,7 @@ function StepInstall({ value, onChange, disclaimer, onDisclaimerChange }: { valu
           {disclaimer && <span className="text-white text-xs leading-none">✓</span>}
         </div>
         <span className="text-xs text-[#8a8070] leading-relaxed">
-          Je comprends que ce setup modifie le comportement de Claude Code. HyperGrowth ne peut etre tenu responsable d&apos;un mauvais parametrage, d&apos;une suspension de compte ou de tout incident lie a l&apos;utilisation de ces configurations.
+          Je comprends que ce setup modifie le comportement de Claude Code. ClaudeFast ne peut etre tenu responsable d&apos;un mauvais parametrage, d&apos;une suspension de compte ou de tout incident lie a l&apos;utilisation de ces configurations.
         </span>
       </label>
     </div>
@@ -637,8 +637,8 @@ function StepContext({
   return (
     <div className="space-y-4">
       {[
-        { key: "name" as const, label: "Ton prenom", placeholder: "Benjamin" },
-        { key: "company" as const, label: "Ton entreprise / agence", placeholder: "HyperGrowth" },
+        { key: "name" as const, label: "Ton prenom", placeholder: "Alex" },
+        { key: "company" as const, label: "Ton entreprise / agence", placeholder: "Acme" },
         { key: "product" as const, label: "Ton projet principal", placeholder: "SaaS B2B, agence acquisition..." },
       ].map((f) => (
         <div key={f.key}>
@@ -812,8 +812,8 @@ function StepResults({ data, claudeMd, loading }: { data: FormData; claudeMd: st
 
   const skillIds = getRecommendedSkills(data.useCases);
   const skills = skillIds.map((id) => SKILLS[id]).filter(Boolean);
-  const essentialSkills = skills.filter(s => ["setup-by-ben", "superpowers"].includes(s.id));
-  const bonusSkills = skills.filter(s => !["setup-by-ben", "superpowers"].includes(s.id));
+  const essentialSkills = skills.filter(s => ["setup-wizard", "superpowers"].includes(s.id));
+  const bonusSkills = skills.filter(s => !["setup-wizard", "superpowers"].includes(s.id));
   const allSkillCmds = skills.map((s) => s.installCmd).join(" && \\\n");
 
   const mcpIds = getRecommendedMCPs(data.useCases);
